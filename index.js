@@ -118,8 +118,51 @@ const promptTeam = managerData => {
     })
 } 
 
+function writeToFile (pageHTML) {
+    return new Promise((success, failure) => {
+        fs.writeFile('./dist/index.html', pageHTML, err => {
+            if (err) {
+                failure(err);
+                return;
+              };
+              success({
+                  ok: true,
+                  message: 'Successfully generated your team page at ./dist/index.html !!!!!'
+            });
+        });
+    });
+};
+
+const copyFile = () => {
+    return new Promise((resolve, reject) => {
+        fs.copyFile('./src/style.css', './dist/style.css', err => {
+            if (err) {
+                reject(err);
+                return;
+              };
+              resolve({
+                  ok: true,
+                  message: 'Styling successfully copied to ./dist/style.css !!!!!'
+              });
+        });
+    });
+};
+
 promptManager()
     .then(promptTeam)
-    // .then(managerData => {
-    //     return generatePage(managerData)
-    // });
+    .then(managerData => {
+        return generatePage(managerData)      
+    })
+    .then(pageHTML => {
+        return writeToFile(pageHTML);
+    })
+    .then(writefileResponse => {
+        console.log(writefileResponse.message)
+    })
+    .then(copyFile)
+    .then(copyfileResponse => {
+        console.log(copyfileResponse.message)
+    })
+    .catch(err => {
+        console.log(err);
+    });
