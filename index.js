@@ -1,12 +1,12 @@
+
 const fs = require('fs');
 const inquirer = require('inquirer');
 const generatePage = require('./src/generatePage');
-
-
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
 
+// Function to accept input for our manager
 const promptManager = () => {
    
      return inquirer.prompt([
@@ -39,6 +39,7 @@ const promptManager = () => {
     })
 };
 
+// Function to accept input for the rest of the team
 const promptTeam = managerData => {
     if (!managerData.engineers) {
         managerData.engineers = [];
@@ -118,6 +119,7 @@ const promptTeam = managerData => {
     })
 } 
 
+// Function to write our index.html to ./dist/
 function writeToFile (pageHTML) {
     return new Promise((success, failure) => {
         fs.writeFile('./dist/index.html', pageHTML, err => {
@@ -133,6 +135,7 @@ function writeToFile (pageHTML) {
     });
 };
 
+// Function to copy our CSS from src to dist
 const copyFile = () => {
     return new Promise((resolve, reject) => {
         fs.copyFile('./src/style.css', './dist/style.css', err => {
@@ -148,6 +151,7 @@ const copyFile = () => {
     });
 };
 
+// Runs our manager function > team function > write HTML > copy CSS
 promptManager()
     .then(promptTeam)
     .then(managerData => {

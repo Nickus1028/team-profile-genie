@@ -1,3 +1,6 @@
+// Code to create our index.html with all the data
+
+// Create our manager html
 const generateManager = Manager => {
     return `
             <div class="card shadow m-2 col-3">
@@ -15,6 +18,7 @@ const generateManager = Manager => {
         </div>`
 }
 
+// Create our engineer html
 const generateEngineer = engineersArr => {
     return `
     ${engineersArr
@@ -38,6 +42,7 @@ const generateEngineer = engineersArr => {
     .join('')}
     `}
 
+// Create our intern html
 const generateIntern = internsArr => {
     return `
     ${internsArr
