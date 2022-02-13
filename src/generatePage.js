@@ -90,7 +90,7 @@ module.exports = templateData => {
   
     <body>
         <nav class="navbar navbar-dark bg-primary text-center">
-            <span class="navbar-brand mb-0 w-100 h1 text-white">${manager.name} Team</span>
+            <span class="navbar-brand mb-0 w-100 h1 text-white">${manager.name}'s Team</span>
         </nav>
       <main class="container my-5">
         <div class="row justify-content-center">
