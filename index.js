@@ -1,5 +1,7 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
+const generatePage = require('./src/generatePage');
+
 
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
@@ -37,7 +39,14 @@ const promptManager = () => {
     })
 };
 
-const promptTeam = () => {
+const promptTeam = managerData => {
+    if (!managerData.engineers) {
+        managerData.engineers = [];
+    }
+    if (!managerData.interns) {
+        managerData.interns = [];
+    }  
+    
     return inquirer.prompt([
         {
             type: "list",
@@ -103,12 +112,14 @@ const promptTeam = () => {
                 return promptTeam(managerData)
              })
         } else {
+            console.log('Team data inputted, building page!')
             return managerData
         }
     })
 } 
 
-
-
-
-promptManager().then(promptTeam);
+promptManager()
+    .then(promptTeam)
+    // .then(managerData => {
+    //     return generatePage(managerData)
+    // });
